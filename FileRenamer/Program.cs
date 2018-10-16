@@ -34,7 +34,7 @@ namespace FileRenamer
 
             foreach (var info in files) {   
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(info.Name);
-                var newFilename = $"{prepend}{fileNameWithoutExtension}.jpg";
+                var newFilename = $"{prepend}{fileNameWithoutExtension}.{info.Extension}";
                 var cleanFileName = newFilename.Replace(" ", "").Replace("(", "").Replace(")", "");
                 var newFullFilename = Path.Combine(path, cleanFileName);
                 
