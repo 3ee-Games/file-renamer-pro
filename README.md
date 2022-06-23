@@ -1,6 +1,13 @@
-# Renamer
-Renames files in a given path.  This is very useful when working with multiple artists that use different types of file naming.
+# 🗂 File Renamer Pro
+## A CLI file renaming utility by 3ee Games
+### Have a bunch of assets but they all use different naming conventions (or none at all)?  Look no further!
 
+Cleans up file names by renaming within a given path.
+
+- Rename all files within a directory.
+- Prepend a name before the file is renamed.
+
+### Examples:
 `-p: path to files to be renamed.`
 example: -p c:\myfolder\assets
 
