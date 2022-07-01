@@ -1,7 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 namespace FileRenamerPro {
     internal static class Program {
+        public enum FilterLevel { 
+            SPACES = 0, 
+            SPACES_PARENTHESES = 1, 
+            SPECIAL_CHARACTERS = 2, 
+            NUMBERS = 3,
+        };
         private static string title = @"
   _____.__.__                                                                                    
 _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  _____________  ____  
@@ -11,6 +18,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     \/               \/     \/     \/      \/     \/        |__|                 ";
         private static string path = "";
         private static string prepend = "";
+        private static string filter = "1";
         private static void Main(string[] args) {
             Console.WriteLine(title);
             for (var i = 0; i < args.Length; i++) {
@@ -22,9 +30,14 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     prepend = args[i + 1];
                 }
 
+                if (args[i] == "-f") {
+                    filter = args[i + 1];
+                }
+
                 if (args[i] == "-h" || args[i] == "-help") {
                     Console.WriteLine(title);
                     Console.WriteLine("-p   :   path to files to be renamed.");
+                    Console.WriteLine("-f   :   amount of filtering used in renaming files: 0 = removes only spaces, 1 = removes spaces and parentheses (DEFAULT), 2 = removes spaces and all special characters, 3 = removes all numbers.");
                     Console.WriteLine("-n   :   name to prepend to filename.  eg. '-n hi_ for hi_filename.txt.");
                     return;
                 }
@@ -44,7 +57,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
             {
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(info.Name);
                 var newFilename = $"{prepend}{fileNameWithoutExtension}{info.Extension}";
-                var cleanFileName = newFilename.Replace(" ", "").Replace("(", "").Replace(")", "");
+                var cleanFileName = CleanFileName(newFilename, filter);
                 var newFullFilename = Path.Combine(path, cleanFileName);
 
                 File.Move(info.FullName, newFullFilename);
@@ -54,7 +67,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
             Console.WriteLine("Total files renamed: {0}", files.Length);
         }
 
-        private static bool validatePath(){
+        private static bool validatePath() {
             if (string.IsNullOrEmpty(path)) {
                 var pathToApplication = System.AppDomain.CurrentDomain.BaseDirectory;
                 var useDefaultPathDisplay = $"No path provided.  Use local path: " + $"{pathToApplication} instead?";
@@ -81,6 +94,32 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                 }
             }
             return false;
+        }
+
+        private static string CleanFileName(string filename, string filterLevel) {
+            Enum.TryParse(filterLevel, out FilterLevel filterLevelStatus);
+            var cleanFilename = "";
+
+            switch (filterLevelStatus) {
+                case FilterLevel.SPACES:
+                    cleanFilename = filename.Replace(" ", "");
+                    break;
+
+                case FilterLevel.SPECIAL_CHARACTERS:
+                    Regex r = new Regex("(?:[^a-z0-9 ]|(?<=['\"])s)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+                    cleanFilename = r.Replace(filename, String.Empty).Replace(" ", "");
+                    break;
+
+                case FilterLevel.NUMBERS:
+                    cleanFilename = Regex.Replace(filename, @"[\d-]", string.Empty);
+                    break;
+
+                default:
+                    cleanFilename = filename.Replace(" ", "").Replace("(", "").Replace(")", "");
+                    break;
+            }
+
+            return cleanFilename;
         }
     }
 }
