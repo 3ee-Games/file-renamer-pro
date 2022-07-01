@@ -14,17 +14,24 @@ Cleans up file names by renaming within a given path.
 ### Usage:
 
 #### Set a path:
+
 `-p: path to files to be renamed.`
+
 example: -p c:\myfolder\assets
 
 #### Set a renaming filter:
-`-p c:\myfolder\assets -f: 2`
+
+`-p c:\myfolder\assets -f 2`
+
 Renames all files under myfolder\assets and renames the files by removing all special characters.
 
 #### Prepend a name:
+
 `-n: name to prepend to filename.`
+
 example: '-n hi_ will result in: hi_filename.txt.
 
 ### Debugging in VS:Code
+
 Within launch.json, change internalConsole to integratedTerminal:
 `"console": "integratedTerminal"`
