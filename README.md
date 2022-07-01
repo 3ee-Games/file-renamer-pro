@@ -4,7 +4,8 @@
 
 Cleans up file names by renaming within a given path.
 
-- Rename all files within a directory.
+- Rename all files within a directory
+    - Removes spaces and parentheses from filenames.
 - Prepend a name before the file is renamed.
 
 ### Examples:
@@ -14,6 +15,6 @@ example: -p c:\myfolder\assets
 `-n: name to prepend to filename.`
 example: '-n hi_ will result in: hi_filename.txt.
 
-### Deugging
+### Debugging in VS:Code
 Within launch.json, change internalConsole to integratedTerminal:
 `"console": "integratedTerminal"`

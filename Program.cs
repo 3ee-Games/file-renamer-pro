@@ -31,12 +31,12 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
             }
 
             var isPathValid = validatePath();
-            if(isPathValid){
-                rename();
+            if(isPathValid) {
+                Rename();
             }
         }
 
-        private static void rename() {
+        private static void Rename() {
             var directoryInfo = new DirectoryInfo(@"" + path); 
             var files = directoryInfo.GetFiles();
 
@@ -66,13 +66,14 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                 else {
                     Console.WriteLine("Please enter path that contains files to be renamed:");
                     path = Console.ReadLine();
+
                     if(string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)){
                         var tryPathAgain = UtilsConsole.Confirm("Not a valid path, try again?");
-                        if(tryPathAgain){
+                        if(tryPathAgain) {
                             path = "";
                             validatePath();
                         }
-                        else{
+                        else {
                             return false;
                         }
                     }
