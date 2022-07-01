@@ -20,30 +20,9 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
         private static string prepend = "";
         private static string filter = "1";
         private static void Main(string[] args) {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(title);
-            Console.ResetColor();
-            for (var i = 0; i < args.Length; i++) {
-                if (args[i] == "-p") {
-                    path = args[i + 1];
-                }
 
-                if (args[i] == "-n") {
-                    prepend = args[i + 1];
-                }
-
-                if (args[i] == "-f") {
-                    filter = args[i + 1];
-                }
-
-                if (args[i] == "-h" || args[i] == "-help") {
-                    Console.WriteLine(title);
-                    Console.WriteLine("-p   :   path to files to be renamed.");
-                    Console.WriteLine("-f   :   amount of filtering used in renaming files: 0 = removes only spaces, 1 = removes spaces and parentheses (DEFAULT), 2 = removes spaces and all special characters, 3 = removes all numbers.");
-                    Console.WriteLine("-n   :   name to prepend to filename.  eg. '-n hi_ for hi_filename.txt.");
-                    return;
-                }
-            }
+            PaintTitleScreen();
+            ArgumentHandler(args);
 
             var isPathValid = validatePath();
             if(isPathValid) {
@@ -65,10 +44,9 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                 File.Move(info.FullName, newFullFilename);
             }
 
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("* Total files renamed: {0}", files.Length);
             Enum.TryParse(filter, out FilterLevel filterLevelStatus);
-            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("* Renamed using {0} filter", filterLevelStatus.ToString());
             Console.ResetColor();
         }
@@ -124,6 +102,36 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
             }
 
             return cleanFilename;
+        }
+
+        private static void PaintTitleScreen() {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(title);
+            Console.ResetColor();
+        }
+
+        private static void ArgumentHandler(string[] args) {
+            for (var i = 0; i < args.Length; i++) {
+                if (args[i] == "-p") {
+                    path = args[i + 1];
+                }
+
+                if (args[i] == "-n") {
+                    prepend = args[i + 1];
+                }
+
+                if (args[i] == "-f") {
+                    filter = args[i + 1];
+                }
+
+                if (args[i] == "-h" || args[i] == "-help") {
+                    Console.WriteLine(title);
+                    Console.WriteLine("-p   :   path to files to be renamed.");
+                    Console.WriteLine("-f   :   amount of filtering used in renaming files: 0 = removes only spaces, 1 = removes spaces and parentheses (DEFAULT), 2 = removes spaces and all special characters, 3 = removes all numbers.");
+                    Console.WriteLine("-n   :   name to prepend to filename.  eg. '-n hi_ for hi_filename.txt.");
+                    return;
+                }
+            }
         }
     }
 }
