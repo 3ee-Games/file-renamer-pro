@@ -13,3 +13,7 @@ example: -p c:\myfolder\assets
 
 `-n: name to prepend to filename.`
 example: '-n hi_ will result in: hi_filename.txt.
+
+### Deugging
+Within launch.json, change internalConsole to integratedTerminal:
+`"console": "integratedTerminal"`
