@@ -64,11 +64,14 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
 
                 Console.WriteLine("Renaming: {0} -> {1}", info.Name, newFullFilename);
             }
-            Console.WriteLine("Total files renamed: {0}", files.Length);
+
+            Console.WriteLine("* Total files renamed: {0}", files.Length);
+            Enum.TryParse(filter, out FilterLevel filterLevelStatus);
+            Console.WriteLine("* Renamed using {0} filter", filterLevelStatus.ToString());
         }
 
         private static bool validatePath() {
-            if (string.IsNullOrEmpty(path)) {
+            if (string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)) {
                 var pathToApplication = System.AppDomain.CurrentDomain.BaseDirectory;
                 var useDefaultPathDisplay = $"No path provided.  Use local path: " + $"{pathToApplication} instead?";
                 var useDefaultPath = UtilsConsole.Confirm(useDefaultPathDisplay);
@@ -81,19 +84,17 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     path = Console.ReadLine();
 
                     if(string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)){
-                        var tryPathAgain = UtilsConsole.Confirm("Not a valid path, try again?");
-                        if(tryPathAgain) {
-                            path = "";
-                            validatePath();
-                        }
-                        else {
+                        var errorMessage = $"{path} is not a valid path, try again?";
+                        var tryPathAgain = UtilsConsole.Confirm(errorMessage);
+                        if(!tryPathAgain) {
                             return false;
                         }
+                        path = "";
+                        validatePath();
                     }
-                    return true;
                 }
             }
-            return false;
+            return true;
         }
 
         private static string CleanFileName(string filename, string filterLevel) {
