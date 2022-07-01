@@ -36,11 +36,11 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
 
             foreach (var info in files) {
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(info.Name);
-                var newFilename = $"{prepend}{fileNameWithoutExtension}{info.Extension}";
-                var cleanFileName = CleanFileName(newFilename, filter);
-                var newFullFilename = Path.Combine(path, cleanFileName);
+                var cleanFileName = CleanFileName(fileNameWithoutExtension, filter);
+                var newFilename = $"{prepend}{cleanFileName}{info.Extension}";
+                var newFullFilename = Path.Combine(path, newFilename);
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Renaming: {0} -> {1}", info.Name, cleanFileName);
+                Console.WriteLine("Renaming: {0} -> {1}", info.Name, newFilename);
                 File.Move(info.FullName, newFullFilename);
             }
 
