@@ -3,7 +3,7 @@
 
 Cleans up file names by renaming within a given path.
 
-![File Renamer Pro](https://github.com/3ee-Games/file-renamer-pro/docs/screenshot.png) 
+![File Renamer Pro](https://github.com/3ee-Games/file-renamer-pro/blob/main/docs/screenshot.png) 
 
 - Rename all files within a directory and choose between four filter levels of renaming:
     - Remove all spaces
