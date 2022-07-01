@@ -53,16 +53,13 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
             var directoryInfo = new DirectoryInfo(@"" + path); 
             var files = directoryInfo.GetFiles();
 
-            foreach (var info in files)
-            {
+            foreach (var info in files) {
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(info.Name);
                 var newFilename = $"{prepend}{fileNameWithoutExtension}{info.Extension}";
                 var cleanFileName = CleanFileName(newFilename, filter);
                 var newFullFilename = Path.Combine(path, cleanFileName);
-
+                Console.WriteLine("Renaming: {0} -> {1}", info.Name, cleanFileName);
                 File.Move(info.FullName, newFullFilename);
-
-                Console.WriteLine("Renaming: {0} -> {1}", info.Name, newFullFilename);
             }
 
             Console.WriteLine("* Total files renamed: {0}", files.Length);
