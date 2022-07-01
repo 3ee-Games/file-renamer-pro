@@ -20,7 +20,9 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
         private static string prepend = "";
         private static string filter = "1";
         private static void Main(string[] args) {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(title);
+            Console.ResetColor();
             for (var i = 0; i < args.Length; i++) {
                 if (args[i] == "-p") {
                     path = args[i + 1];
@@ -58,13 +60,18 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                 var newFilename = $"{prepend}{fileNameWithoutExtension}{info.Extension}";
                 var cleanFileName = CleanFileName(newFilename, filter);
                 var newFullFilename = Path.Combine(path, cleanFileName);
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Renaming: {0} -> {1}", info.Name, cleanFileName);
                 File.Move(info.FullName, newFullFilename);
             }
 
+            
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("* Total files renamed: {0}", files.Length);
             Enum.TryParse(filter, out FilterLevel filterLevelStatus);
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("* Renamed using {0} filter", filterLevelStatus.ToString());
+            Console.ResetColor();
         }
 
         private static bool validatePath() {
