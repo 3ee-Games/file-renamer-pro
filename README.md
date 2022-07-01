@@ -1,5 +1,5 @@
 # 🗂 File Renamer Pro
-## A CLI renaming utility
+## CLI renaming utility
 
 Cleans up file names by renaming within a given path.
 
@@ -17,7 +17,7 @@ Cleans up file names by renaming within a given path.
 | Command | Description |
 |---------|-------------|
 | `file-renamer-pro -p {path}` | Sets a given path.  If not, you'll be able to input a path |
-| `file-renamer-pro -f {0, 1, 2, 3}` | Sets a renaming filter.
+| `file-renamer-pro -f {0, 1, 2, 3}` | Sets a renaming filter
 | `file-renamer-pro -n {name}` | Prepends a given name to the file |
 
 #### Basic usage with defaults:
