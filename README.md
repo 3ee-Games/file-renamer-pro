@@ -1,6 +1,5 @@
 # 🗂 File Renamer Pro
-## A CLI file renaming utility by 3ee Games
-### Have a bunch of assets but they all use different naming conventions (or none at all)?  Look no further!
+## A CLI renaming utility
 
 Cleans up file names by renaming within a given path.
 

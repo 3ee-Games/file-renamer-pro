@@ -65,7 +65,6 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                 File.Move(info.FullName, newFullFilename);
             }
 
-            
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("* Total files renamed: {0}", files.Length);
             Enum.TryParse(filter, out FilterLevel filterLevelStatus);
