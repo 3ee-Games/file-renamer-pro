@@ -33,19 +33,24 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
         private static void Rename() {
             var directoryInfo = new DirectoryInfo(@"" + path); 
             var files = directoryInfo.GetFiles();
+            var fileCounter = 0;
 
             foreach (var info in files) {
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(info.Name);
                 var cleanFileName = CleanFileName(fileNameWithoutExtension, filter);
                 var newFilename = $"{prepend}{cleanFileName}{info.Extension}";
                 var newFullFilename = Path.Combine(path, newFilename);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Renaming: {0} -> {1}", info.Name, newFilename);
-                File.Move(info.FullName, newFullFilename);
+
+                if(info.FullName != newFullFilename) {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Renaming: {0} -> {1}", info.Name, newFilename);
+                    File.Move(info.FullName, newFullFilename, true);
+                    fileCounter++;
+                }
             }
 
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("* Total files renamed: {0}", files.Length);
+            Console.WriteLine("* Total files renamed: {0} out of {1}", fileCounter, files.Length);
             Enum.TryParse(filter, out FilterLevel filterLevelStatus);
             Console.WriteLine("* Renamed using {0} filter", filterLevelStatus.ToString());
             Console.ResetColor();
