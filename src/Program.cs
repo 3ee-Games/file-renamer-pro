@@ -130,7 +130,6 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                 }
 
                 if (args[i] == "-h" || args[i] == "-help") {
-                    Console.WriteLine(title);
                     Console.WriteLine("-p   :   path to files to be renamed.");
                     Console.WriteLine("-f   :   amount of filtering used in renaming files: 0 = removes only spaces, 1 = removes spaces and parentheses (DEFAULT), 2 = removes spaces and all special characters, 3 = removes all numbers.");
                     Console.WriteLine("-n   :   name to prepend to filename.  eg. '-n hi_ for hi_filename.txt.");
