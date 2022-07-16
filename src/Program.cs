@@ -19,6 +19,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
         private static string path = "";
         private static string prepend = "";
         private static string filter = "1";
+        private static bool keepCase = false;
         private static void Main(string[] args) {
 
             PaintTitleScreen();
@@ -89,12 +90,12 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
 
             switch (filterLevelStatus) {
                 case FilterLevel.SPACES:
-                    cleanFilename = filename.Replace(" ", "");
+                    cleanFilename = (keepCase) ? filename.Replace(" ", "") : filename.Replace(" ", "").ToLowerInvariant();
                     break;
 
                 case FilterLevel.SPECIAL_CHARACTERS:
                     Regex r = new Regex("(?:[^a-z0-9 ]|(?<=['\"])s)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
-                    cleanFilename = r.Replace(filename, String.Empty).Replace(" ", "");
+                    cleanFilename = (keepCase) ? r.Replace(filename, String.Empty).Replace(" ", "") : r.Replace(filename, String.Empty).Replace(" ", "").ToLowerInvariant();
                     break;
 
                 case FilterLevel.NUMBERS:
@@ -102,7 +103,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     break;
 
                 default:
-                    cleanFilename = filename.Replace(" ", "").Replace("(", "").Replace(")", "");
+                    cleanFilename = (keepCase) ? filename.Replace(" ", "").Replace("(", "").Replace(")", "") : filename.Replace(" ", "").Replace("(", "").Replace(")", "").ToLowerInvariant();
                     break;
             }
 
@@ -129,10 +130,15 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     filter = args[i + 1];
                 }
 
+                if(args[i] == "--keep-case") {
+                    keepCase = true;
+                }
+
                 if (args[i] == "-h" || args[i] == "-help") {
-                    Console.WriteLine("-p   :   path to files to be renamed.");
-                    Console.WriteLine("-f   :   amount of filtering used in renaming files: 0 = removes only spaces, 1 = removes spaces and parentheses (DEFAULT), 2 = removes spaces and all special characters, 3 = removes all numbers.");
-                    Console.WriteLine("-n   :   name to prepend to filename.  eg. '-n hi_ for hi_filename.txt.");
+                    Console.WriteLine("-p            :   path to files to be renamed.");
+                    Console.WriteLine("-f            :   amount of filtering used in renaming files: 0 = removes only spaces, 1 = removes spaces and parentheses (DEFAULT), 2 = removes spaces and all special characters, 3 = removes all numbers.");
+                    Console.WriteLine("-n            :   name to prepend to filename.  eg. '-n hi_ for hi_filename.txt.");
+                    Console.WriteLine("--keep-case   :   this flag will keep the case of the name of the file.");
                     return;
                 }
             }
