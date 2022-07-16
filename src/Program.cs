@@ -8,6 +8,7 @@ namespace FileRenamerPro {
             SPACES_PARENTHESES = 1, 
             SPECIAL_CHARACTERS = 2, 
             NUMBERS = 3,
+            GUID = 4
         };
         private static string title = @"
   _____.__.__                                                                                    
@@ -18,6 +19,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     \/               \/     \/     \/      \/     \/        |__|                 ";
         private static string path = "";
         private static string prepend = "";
+        private static string append = "";
         private static string filter = "1";
         private static bool keepCase = false;
         private static void Main(string[] args) {
@@ -39,7 +41,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
             foreach (var info in files) {
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(info.Name);
                 var cleanFileName = CleanFileName(fileNameWithoutExtension, filter);
-                var newFilename = $"{prepend}{cleanFileName}{info.Extension}";
+                var newFilename = $"{prepend}{cleanFileName}{append}{info.Extension}";
                 var newFullFilename = Path.Combine(path, newFilename);
 
                 if(info.FullName != newFullFilename) {
@@ -102,6 +104,11 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     cleanFilename = Regex.Replace(filename, @"[\d-]", string.Empty);
                     break;
 
+                case FilterLevel.GUID:
+                    cleanFilename =  Guid.NewGuid().ToString();
+                    break;
+
+                case FilterLevel.SPACES_PARENTHESES:
                 default:
                     cleanFilename = (keepCase) ? filename.Replace(" ", "").Replace("(", "").Replace(")", "") : filename.Replace(" ", "").Replace("(", "").Replace(")", "").ToLowerInvariant();
                     break;
@@ -126,6 +133,10 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     prepend = args[i + 1];
                 }
 
+                if (args[i] == "-a") {
+                    append = args[i + 1];
+                }
+
                 if (args[i] == "-f") {
                     filter = args[i + 1];
                 }
@@ -138,6 +149,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
                     Console.WriteLine("-p            :   path to files to be renamed.");
                     Console.WriteLine("-f            :   amount of filtering used in renaming files: 0 = removes only spaces, 1 = removes spaces and parentheses (DEFAULT), 2 = removes spaces and all special characters, 3 = removes all numbers.");
                     Console.WriteLine("-n            :   name to prepend to filename.  eg. '-n hi_ for hi_filename.txt.");
+                    Console.WriteLine("-a            :   name to append to filename.  eg. '-a _bye for filename_bye.txt.");
                     Console.WriteLine("--keep-case   :   this flag will keep the case of the name of the file.");
                     return;
                 }
