@@ -1,7 +1,7 @@
 # 🗂 File Renamer Pro
 ## CLI renaming utility
 
-Cleans up file names by renaming within a given path.
+Cleans up file names by renaming within a given path.  Requires [dotnet](https://docs.microsoft.com/en-us/dotnet/core/install/) to run cross platform.
 
 ![File Renamer Pro](https://github.com/3ee-Games/file-renamer-pro/blob/main/docs/screenshot.png) 
 
