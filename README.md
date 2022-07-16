@@ -10,15 +10,19 @@ Cleans up file names by renaming within a given path.
     - Remove all spaces and parentheses (default)
     - Remove all spaces and special characters
     - Remove all numbers
+    - Rename all files as GUIDs
 - Prepend a name before the file is renamed.
+- Append a name at the end of the filename.
 
 ### Usage:
 
 | Command | Description |
 |---------|-------------|
 | `file-renamer-pro -p {path}` | Sets a given path.  If not, you'll be able to input a path |
-| `file-renamer-pro -f {0, 1, 2, 3}` | Sets a renaming filter
+| `file-renamer-pro -f {0, 1, 2, 3, 4}` | Sets a renaming filter
 | `file-renamer-pro -n {name}` | Prepends a given name to the file |
+| `file-renamer-pro -a {name}` | Appends a given name to the file |
+| `file-renamer-pro --keep-case` | This override flag will keep the case of the names of the files |
 
 #### Basic usage with defaults:
 
@@ -38,12 +42,19 @@ Renames all files under myfolder\assets and renames the files by removing all sp
 | `file-renamer-pro -f 1` | Removes all spaces and parentheses (default).
 | `file-renamer-pro -f 2` | Removes all spaces and special characters
 | `file-renamer-pro -f 3` | Removes all numbers |
+| `file-renamer-pro -f 4` | Renames all files as GUIDs |
 
 #### Prepend a name:
 
 `file-renamer-pro -f 3 -n hi_ -p c:\myfolder\assets`
 
 Renames all files under myfolder\assets and renames the files by removing all numbers.  All filenames are prepended with "hi_". (hi_testImage.png)
+
+#### Append a name:
+
+`file-renamer-pro -f 3 -a _bye -p c:\myfolder\assets`
+
+Renames all files under myfolder\assets and renames the files by removing all numbers.  All filenames are appended with "_bye". (testImage_bye.png)
 
 ### Debugging in VS:Code
 
