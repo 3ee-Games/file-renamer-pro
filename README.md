@@ -1,62 +1,62 @@
 # 🗂 File Renamer Pro
-## CLI renaming utility
+## Command-Line Interface (CLI) File Renaming Tool
 
-Cleans up file names by renaming within a given path.  Requires [dotnet](https://docs.microsoft.com/en-us/dotnet/core/install/) to run cross platform.
+Easily rename files within a specified path, providing cleaner and more organized file names. To run this cross-platform utility, you'll need to install [dotnet](https://docs.microsoft.com/en-us/dotnet/core/install/).
 
-![File Renamer Pro](https://github.com/3ee-Games/file-renamer-pro/blob/main/docs/screenshot.png) 
+![File Renamer Pro](https://github.com/3ee-Games/file-renamer-pro/blob/main/docs/screenshot.png)
 
-- Rename all files within a directory and choose between four filter levels of renaming:
+- Rename all files within a directory, choosing from five available renaming filters:
     - Remove all spaces
     - Remove all spaces and parentheses (default)
     - Remove all spaces and special characters
     - Remove all numbers
     - Rename all files as GUIDs
-- Prepend a name before the file is renamed.
-- Append a name at the end of the filename.
+- Prepend a custom text to the file name.
+- Append a custom text to the file name.
 
 ### Usage:
 
 | Command | Description |
 |---------|-------------|
-| `file-renamer-pro -p {path}` | Sets a given path.  If not, you'll be able to input a path |
-| `file-renamer-pro -f {0, 1, 2, 3, 4}` | Sets a renaming filter
-| `file-renamer-pro -n {name}` | Prepends a given name to the file |
-| `file-renamer-pro -a {name}` | Appends a given name to the file |
-| `file-renamer-pro --keep-case` | This override flag will keep the case of the names of the files |
+| `file-renamer-pro -p {path}` | Specify a path; if not provided, you'll be prompted to enter one |
+| `file-renamer-pro -f {0, 1, 2, 3, 4}` | Select a renaming filter |
+| `file-renamer-pro -n {name}` | Prepend a custom text to the file name |
+| `file-renamer-pro -a {name}` | Append a custom text to the file name |
+| `file-renamer-pro --keep-case` | Use this flag to maintain the original file name's case |
 
-#### Basic usage with defaults:
+#### Basic Usage with Default Settings:
 
 `file-renamer-pro -p c:\myfolder\assets`
 
-Renames all files under myfolder\assets and uses the default renaming filtering.
+Renames all files within `myfolder\assets` using the default renaming filter.
 
-#### Set a renaming filter:
+#### Specifying a Renaming Filter:
 
 `file-renamer-pro -f 2 -p c:\myfolder\assets`
 
-Renames all files under myfolder\assets and renames the files by removing all special characters.
+Renames all files within `myfolder\assets`, removing all special characters.
 
 | Filter Command | Description |
 |----------------|-------------|
 | `file-renamer-pro -f 0` | Removes all spaces |
-| `file-renamer-pro -f 1` | Removes all spaces and parentheses (default).
-| `file-renamer-pro -f 2` | Removes all spaces and special characters
+| `file-renamer-pro -f 1` | Removes all spaces and parentheses (default) |
+| `file-renamer-pro -f 2` | Removes all spaces and special characters |
 | `file-renamer-pro -f 3` | Removes all numbers |
 | `file-renamer-pro -f 4` | Renames all files as GUIDs |
 
-#### Prepend a name:
+#### Prepend Custom Text:
 
 `file-renamer-pro -f 3 -n hi_ -p c:\myfolder\assets`
 
-Renames all files under myfolder\assets and renames the files by removing all numbers.  All filenames are prepended with "hi_". (hi_testImage.png)
+Renames all files within `myfolder\assets`, removing all numbers. All file names are prepended with "hi_" (e.g., hi_testImage.png).
 
-#### Append a name:
+#### Append Custom Text:
 
 `file-renamer-pro -f 3 -a _bye -p c:\myfolder\assets`
 
-Renames all files under myfolder\assets and renames the files by removing all numbers.  All filenames are appended with "_bye". (testImage_bye.png)
+Renames all files within `myfolder\assets`, removing all numbers. All file names are appended with "_bye" (e.g., testImage_bye.png).
 
-### Debugging in VS:Code
+### Debugging in Visual Studio Code (VSCode):
 
-Within launch.json, change internalConsole to integratedTerminal:
+In `launch.json`, change the `internalConsole` to `integratedTerminal`:
 `"console": "integratedTerminal"`
