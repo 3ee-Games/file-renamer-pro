@@ -2,7 +2,6 @@ using NUnit.Framework;
 using System;
 using FileRenamerPro;
 
-
 [TestFixture]
 public class FileRenamerProTests
 {
@@ -11,7 +10,8 @@ public class FileRenamerProTests
     {
         string fileName = "Hello Wor l d";
         string expected = "helloworld";
-        string actual = Program.CleanFileName(fileName, Program.FilterLevel.SPACES.ToString());
+        Program._filter = Program.FilterLevel.Spaces;
+        string actual = Program.CleanFileName(fileName);
 
         Assert.AreEqual(expected, actual);
     }
@@ -21,7 +21,8 @@ public class FileRenamerProTests
     {
         string fileName = "Hello (World)";
         string expected = "helloworld";
-        string actual = Program.CleanFileName(fileName, Program.FilterLevel.SPACES_PARENTHESES.ToString());
+        Program._filter = Program.FilterLevel.SpacesParentheses;
+        string actual = Program.CleanFileName(fileName);
 
         Assert.AreEqual(expected, actual);
     }
@@ -31,19 +32,19 @@ public class FileRenamerProTests
     {
         string fileName = "Hello@World!";
         string expected = "helloworld";
-        string actual = Program.CleanFileName(fileName, Program.FilterLevel.SPECIAL_CHARACTERS.ToString());
+        Program._filter = Program.FilterLevel.SpecialCharacters;
+        string actual = Program.CleanFileName(fileName);
 
-        // Assert
         Assert.AreEqual(expected, actual);
     }
 
     [Test]
     public void CleanFileName_NumbersFilterLevel_RemovesNumbers()
     {
-        // Arrange
-        string fileName = "hello123world456";
+        string fileName = "Hello123World456";
         string expected = "helloworld";
-        string actual = Program.CleanFileName(fileName, Program.FilterLevel.NUMBERS.ToString());
+        Program._filter = Program.FilterLevel.Numbers;
+        string actual = Program.CleanFileName(fileName);
 
         Assert.AreEqual(expected, actual);
     }
@@ -51,9 +52,9 @@ public class FileRenamerProTests
     [Test]
     public void CleanFileName_GuidFilterLevel_GeneratesNewGuid()
     {
-
         string fileName = "d6ef5b3e-d019-46b5-89c0-6bb6a1db1560";
-        string actual = Program.CleanFileName(fileName, Program.FilterLevel.GUID.ToString());
+        Program._filter = Program.FilterLevel.Guid;
+        string actual = Program.CleanFileName(fileName);
 
         Guid guid;
         bool isGuid = Guid.TryParse(actual, out guid);
