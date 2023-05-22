@@ -86,7 +86,7 @@ _/ ____\__|  |   ____   _______   ____   ____ _____    _____   ___________  ____
             return true;
         }
 
-        private static string CleanFileName(string filename, string filterLevel) {
+        public static string CleanFileName(string filename, string filterLevel) {
             Enum.TryParse(filterLevel, out FilterLevel filterLevelStatus);
             var cleanFilename = "";
 
