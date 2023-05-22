@@ -41,7 +41,7 @@ public class FileRenamerProTests
     [Test]
     public void CleanFileName_NumbersFilterLevel_RemovesNumbers()
     {
-        string fileName = "hello123world456";
+        string fileName = "Hello123World456";
         string expected = "helloworld";
         Program._filter = Program.FilterLevel.Numbers;
         string actual = Program.CleanFileName(fileName);

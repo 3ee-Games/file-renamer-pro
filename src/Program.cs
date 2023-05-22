@@ -113,6 +113,7 @@ namespace FileRenamerPro
                     break;
                 case FilterLevel.Numbers:
                     cleanFilename = Regex.Replace(filename, @"[\d-]", string.Empty);
+                    cleanFilename = _keepCase ? cleanFilename : cleanFilename.ToLowerInvariant();
                     break;
                 case FilterLevel.Guid:
                     cleanFilename = Guid.NewGuid().ToString();
@@ -160,11 +161,35 @@ namespace FileRenamerPro
 
         private static void PrintHelp()
         {
-             Console.WriteLine("-p            :   path to files to be renamed.");
-                    Console.WriteLine("-f            :   amount of filtering used in renaming files: 0 = removes only spaces, 1 = removes spaces and parentheses (DEFAULT), 2 = removes spaces and all special characters, 3 = removes all numbers.");
-                    Console.WriteLine("-n            :   name to prepend to filename.  eg. '-n hi_ for hi_filename.txt.");
-                    Console.WriteLine("-a            :   name to append to filename.  eg. '-a _bye for filename_bye.txt.");
-                    Console.WriteLine("--keep-case   :   this flag will keep the case of the name of the file.");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("-p");
+            Console.ResetColor();
+            Console.WriteLine("    Path to files to be renamed.\n");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("-f");
+            Console.ResetColor();
+            Console.WriteLine("    Amount of filtering used in renaming files: \n" +
+                              "    0 = Removes only spaces\n" +
+                              "    1 = Removes spaces and parentheses (DEFAULT)\n" +
+                              "    2 = Removes spaces and all special characters\n" +
+                              "    3 = Removes all numbers\n");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("-n");
+            Console.ResetColor();
+            Console.WriteLine("    Name to prepend to filename.  eg. '-n hi_' for hi_filename.txt.\n");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("-a");
+            Console.ResetColor();
+            Console.WriteLine("    Name to append to filename.  eg. '-a _bye' for filename_bye.txt.\n");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("--keep-case");
+            Console.ResetColor();
+            Console.WriteLine("    This flag will keep the case of the name of the file.");
         }
+
     }
 }
